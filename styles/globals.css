@@ -2,35 +2,76 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --bg: #000000;
-  --surface: #111111;
-  --surface-2: #1c1c1c;
-  --border: #2a2a2a;
-  --text: #ffffff;
-  --text-muted: #666666;
-  --text-dim: #333333;
-  --accent: #ffffff;
-  --red: #cc0000;
-  --card-surface: #f5f5f5;
-  --secondary-bg: #1a1a1a;
-  --radius: 4px;
-  --radius-lg: 8px;
+/**
+ * Theme tokens live on .eg-theme-dark / .eg-theme-light (see ThemeRoot wrapper).
+ * html/body stay neutral so React hydration cannot strip theme from <html>.
+ */
+html {
+  color-scheme: dark;
+}
+
+.eg-theme-dark {
+  --bg: #0a0a0a;
+  --surface: #141414;
+  --surface-2: #1e1e1e;
+  --border: #333333;
+  --border-strong: #e8e8e8;
+  --text: #f5f5f5;
+  --text-muted: #8a8a8a;
+  --text-dim: #555555;
+  --accent: #f5f5f5;
+  --red: #d92a2a;
+  --card-surface: #f0f0f0;
+  --input-bg: #0f0f0f;
+  --modal-backdrop: rgba(0, 0, 0, 0.78);
+  --modal-surface: #0a0a0a;
+  --ring: #f5f5f5;
+  --ring-offset: #0a0a0a;
+  --btn-primary-border: #e0e0e0;
+  --btn-primary-bg: #0a0a0a;
+  --btn-primary-fg: #f5f5f5;
+  --btn-primary-hover-bg: #f5f5f5;
+  --btn-primary-hover-fg: #0a0a0a;
+  --radius: 6px;
+  --radius-lg: 11px;
+  color-scheme: dark;
+}
+
+.eg-theme-light {
+  --bg: #f4f4f1;
+  --surface: #ffffff;
+  --surface-2: #ebeae6;
+  --border: #d4d3cd;
+  --border-strong: #1a1a1a;
+  --text: #141414;
+  --text-muted: #5c5c5c;
+  --text-dim: #9a9a94;
+  --accent: #141414;
+  --red: #b91c1c;
+  --card-surface: #ffffff;
+  --input-bg: #ffffff;
+  --modal-backdrop: rgba(20, 20, 20, 0.45);
+  --modal-surface: #ffffff;
+  --ring: #141414;
+  --ring-offset: #f4f4f1;
+  --btn-primary-border: #141414;
+  --btn-primary-bg: #141414;
+  --btn-primary-fg: #f4f4f1;
+  --btn-primary-hover-bg: #f4f4f1;
+  --btn-primary-hover-fg: #141414;
+  --radius: 6px;
+  --radius-lg: 11px;
+  color-scheme: light;
 }
 
 * {
   box-sizing: border-box;
 }
 
-html {
-  color-scheme: dark;
-}
-
 body {
   margin: 0;
   min-height: 100dvh;
-  background: var(--bg);
-  color: var(--text);
+  background-color: #0a0a0a;
   font-family: var(--font-mono), ui-monospace, monospace;
   -webkit-font-smoothing: antialiased;
 }
@@ -41,6 +82,13 @@ body {
 
 .font-mono-ui {
   font-family: var(--font-mono), ui-monospace, monospace;
+}
+
+@layer components {
+  .input-field {
+    @apply w-full rounded-brand border border-border px-3 py-3 font-mono text-sm text-ink placeholder:text-dim;
+    background: var(--input-bg);
+  }
 }
 
 @layer utilities {

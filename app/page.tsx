@@ -71,40 +71,45 @@ const GAMES: {
 
 export default function Home() {
   return (
-    <div className="min-h-dvh bg-bg text-ink flex flex-col items-center px-4 py-10">
-      <header className="w-full max-w-phone text-center mb-10">
-        <h1 className="font-display text-[clamp(3rem,8vw,6rem)] leading-none tracking-tight">
-          NIGHTGAMES
-        </h1>
-        <div className="mt-6 h-px w-full bg-border" />
-      </header>
+    <div className="min-h-dvh bg-bg text-ink">
+      <div className="mx-auto flex min-h-dvh w-full max-w-5xl flex-col px-4 pb-16 pt-16 sm:px-8 sm:pt-20">
+        <header className="mb-10 w-full text-center sm:mb-14">
+          <h1 className="font-display text-[clamp(2.5rem,6vw,4.25rem)] leading-[1.05] tracking-tight text-balance text-ink">
+            Evening Games
+          </h1>
+          <p className="mx-auto mt-4 max-w-md font-mono text-xs text-muted leading-relaxed">
+            For two — pass one device or use a TV and phones.
+          </p>
+          <div className="mx-auto mt-8 h-px w-full max-w-sm bg-border" />
+        </header>
 
-      <div className="w-full max-w-phone grid grid-cols-1 gap-5 pb-16">
-        {GAMES.map((g) => (
-          <Link
-            key={g.slug}
-            href={`/games/${g.slug}`}
-            className="group block border border-border bg-surface-2 p-5 transition-transform duration-150 hover:border-white hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
-          >
-            <h2 className="font-display text-2xl sm:text-3xl text-white mb-2">
-              {g.name}
-            </h2>
-            <p className="font-mono text-xs text-muted leading-relaxed mb-4">
-              {g.desc}
-            </p>
-            <div className="flex flex-wrap gap-2">
-              <Badge>2 Players</Badge>
-              <Badge>{g.duration}</Badge>
-            </div>
-          </Link>
-        ))}
+        <div className="mx-auto grid w-full max-w-4xl grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2">
+          {GAMES.map((g) => (
+            <Link
+              key={g.slug}
+              href={`/games/${g.slug}`}
+              className="group flex h-full flex-col rounded-brand-lg border border-border bg-surface-2 p-5 transition-all duration-200 hover:-translate-y-0.5 hover:border-border-strong focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-ring-offset sm:p-6"
+            >
+              <h2 className="mb-2 font-display text-2xl text-ink sm:text-3xl">
+                {g.name}
+              </h2>
+              <p className="mb-4 flex-1 font-mono text-xs text-muted leading-relaxed">
+                {g.desc}
+              </p>
+              <div className="mt-auto flex flex-wrap gap-2">
+                <Badge>2 Players</Badge>
+                <Badge>{g.duration}</Badge>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        <footer className="mx-auto mt-14 w-full max-w-4xl border-t border-border pt-8 text-center">
+          <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
+            Pass one device. Play together.
+          </p>
+        </footer>
       </div>
-
-      <footer className="w-full max-w-phone border-t border-border pt-6 text-center">
-        <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
-          Pass one device. Play together.
-        </p>
-      </footer>
     </div>
   );
 }

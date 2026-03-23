@@ -247,7 +247,7 @@ export function DurakGame() {
                   type="button"
                   onClick={() => g.phase === "defend" && setDefendRow(i)}
                   className={`flex min-h-[84px] w-full items-center justify-center border border-dashed ${
-                    defendRow === i ? "border-white" : "border-border"
+                    defendRow === i ? "border-border-strong" : "border-border"
                   }`}
                 >
                   {r.defense ? (

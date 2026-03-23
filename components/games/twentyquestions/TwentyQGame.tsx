@@ -88,7 +88,7 @@ export function TwentyQGame() {
             Player 1: secret thing (Player 2 looks away)
           </p>
           <input
-            className="w-full bg-black border border-border px-3 py-3 font-mono text-sm text-white"
+            className="input-field"
             value={entryDraft}
             onChange={(e) => setEntryDraft(e.target.value)}
             placeholder="Person, place, object, animal…"
@@ -106,7 +106,7 @@ export function TwentyQGame() {
             </p>
           </div>
 
-          <div className="max-h-[30vh] overflow-y-auto border border-border divide-y divide-border">
+          <div className="max-h-[30vh] overflow-y-auto divide-y divide-border rounded-brand border border-border">
             {questions.length === 0 ? (
               <p className="p-4 font-mono text-xs text-dim">No questions yet.</p>
             ) : (
@@ -115,7 +115,7 @@ export function TwentyQGame() {
                   <p className="font-mono text-[10px] text-dim">
                     {i + 1}. {row.q}
                   </p>
-                  <p className="font-mono text-sm text-white uppercase">
+                  <p className="font-mono text-sm text-ink uppercase">
                     {row.a ?? "…"}
                   </p>
                 </div>
@@ -129,7 +129,7 @@ export function TwentyQGame() {
                 Player 2 — your question
               </p>
               <input
-                className="w-full bg-black border border-border px-3 py-3 font-mono text-sm"
+                className="input-field"
                 value={qDraft}
                 onChange={(e) => setQDraft(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && ask()}
@@ -166,7 +166,7 @@ export function TwentyQGame() {
                 Player 2 — one guess for the thing
               </p>
               <input
-                className="w-full bg-black border border-border px-3 py-3 font-mono text-sm"
+                className="input-field"
                 value={guessDraft}
                 onChange={(e) => setGuessDraft(e.target.value)}
                 placeholder="Your guess"
@@ -188,7 +188,7 @@ export function TwentyQGame() {
             {phase === "won" ? "Player 2 wins" : "Player 1 wins"}
           </p>
           <p className="font-mono text-sm text-muted">
-            Secret: <span className="text-white">{secret}</span>
+            Secret: <span className="text-ink">{secret}</span>
           </p>
           {phase === "lost" ? (
             <p className="font-mono text-xs text-muted">

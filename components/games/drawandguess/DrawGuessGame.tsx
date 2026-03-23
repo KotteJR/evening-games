@@ -228,7 +228,7 @@ export function DrawGuessGame() {
                 <canvas ref={canvasRef} className="w-full h-full block" />
               </div>
               <input
-                className="w-full bg-black border border-border px-3 py-3 font-mono text-sm"
+                className="input-field"
                 value={guess}
                 onChange={(e) => setGuess(e.target.value)}
                 placeholder="Your guess"

@@ -40,18 +40,18 @@ function JoinRoomInner() {
   }
 
   return (
-    <div className="min-h-dvh bg-bg text-ink flex flex-col items-center justify-center px-6 max-w-phone mx-auto w-full gap-8">
+    <div className="mx-auto flex min-h-dvh w-full max-w-play flex-col items-center justify-center gap-8 px-6">
       <div className="text-center space-y-2">
         <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
           Join room
         </p>
-        <h1 className="font-display text-4xl text-white">{code}</h1>
+        <h1 className="font-display text-4xl text-ink">{code}</h1>
       </div>
       <input
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Your name"
-        className="w-full bg-black border border-border px-3 py-3 font-mono text-sm text-white placeholder:text-dim"
+        className="input-field"
         onKeyDown={(e) => e.key === "Enter" && submit()}
       />
       <Button onClick={submit} disabled={!name.trim()} className="w-full">

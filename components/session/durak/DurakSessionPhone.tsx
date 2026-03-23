@@ -28,7 +28,8 @@ export function DurakSessionPhone({ roomCode, playerName }: Props) {
   const [selected, setSelected] = useState<string[]>([]);
   const [defendRow, setDefendRow] = useState<number | null>(null);
 
-  const { gameState, connected, myRole, sendAction, error } = useSession({
+  const { gameState, connected, myRole, sendAction, error, connectionHint } =
+    useSession({
     roomCode,
     playerName,
     deviceType: getDeviceType(),
@@ -109,7 +110,12 @@ export function DurakSessionPhone({ roomCode, playerName }: Props) {
 
   if (!role) {
     return (
-      <div className="min-h-dvh bg-bg flex items-center justify-center px-4">
+      <div className="min-h-dvh bg-bg flex flex-col items-center justify-center px-4 gap-3 max-w-md mx-auto w-full">
+        {connectionHint ? (
+          <p className="font-mono text-xs text-suitred text-center leading-relaxed">
+            {connectionHint}
+          </p>
+        ) : null}
         <p className="font-mono text-sm text-muted text-center">
           {connected ? "Assigning seat…" : "Connecting…"}
         </p>
@@ -120,7 +126,7 @@ export function DurakSessionPhone({ roomCode, playerName }: Props) {
   if (!pub || pub.phase === "lobby") {
     return (
       <div className="min-h-dvh bg-bg flex flex-col items-center justify-center px-4 gap-4">
-        <p className="font-display text-2xl text-white">Player {role}</p>
+        <p className="font-display text-2xl text-ink">Player {role}</p>
         <p className="font-mono text-sm text-muted text-center">
           {connected
             ? "Waiting for host to start…"
@@ -133,7 +139,7 @@ export function DurakSessionPhone({ roomCode, playerName }: Props) {
   if (pub.phase === "gameover") {
     return (
       <div className="min-h-dvh bg-bg flex flex-col items-center justify-center px-4 gap-3">
-        <p className="font-display text-2xl text-white">Match over</p>
+        <p className="font-display text-2xl text-ink">Match over</p>
         <p className="font-mono text-xs text-muted text-center">
           Watch the TV for the winner. Host can start a new match.
         </p>
@@ -196,7 +202,7 @@ export function DurakSessionPhone({ roomCode, playerName }: Props) {
                 disabled={!isDefendTurn || !!r.defense}
                 onClick={() => isDefendTurn && setDefendRow(i)}
                 className={`flex min-h-[72px] w-full items-center justify-center border border-dashed ${
-                  defendRow === i ? "border-white" : "border-border"
+                  defendRow === i ? "border-border-strong" : "border-border"
                 }`}
               >
                 {r.defense ? (

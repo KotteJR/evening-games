@@ -134,7 +134,7 @@ export function BattleshipGame() {
     onCell: (r: number, c: number) => void,
   ) => (
     <div
-      className="grid gap-0 border border-border mx-auto w-full max-w-[340px]"
+      className="mx-auto grid w-full max-w-[340px] gap-0 overflow-hidden rounded-brand border border-border"
       style={{
         gridTemplateColumns: `repeat(${BS_SIZE}, minmax(0,1fr))`,
       }}
@@ -148,11 +148,11 @@ export function BattleshipGame() {
             className={`aspect-square border border-border text-[10px] font-mono ${
               cell.hit
                 ? cell.ship
-                  ? "text-white"
+                  ? "text-suitred"
                   : "text-muted"
                 : showShips && cell.ship
-                  ? "bg-white text-black"
-                  : "bg-black"
+                  ? "bg-card text-neutral-900"
+                  : "bg-surface"
             }`}
           >
             {cell.hit ? (cell.ship ? "✕" : "·") : ""}

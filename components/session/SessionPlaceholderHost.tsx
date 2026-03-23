@@ -20,11 +20,11 @@ export function SessionPlaceholderHost({
     <div className="min-h-dvh bg-bg text-ink flex flex-col px-4 py-8 max-w-lg mx-auto w-full items-center justify-center text-center gap-6">
       <Link
         href="/"
-        className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted hover:text-white self-start"
+        className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted hover:text-ink self-start"
       >
         ← Menu
       </Link>
-      <h1 className="font-display text-2xl text-white">
+      <h1 className="font-display text-2xl text-ink">
         {title} · {roomCode}
       </h1>
       <SessionQR url={joinUrl} label="Scan to join" />

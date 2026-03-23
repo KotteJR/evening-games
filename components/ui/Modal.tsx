@@ -1,70 +1,56 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { Button } from "./Button";
+import type { ReactNode } from "react";
 
 type Props = {
   open: boolean;
   title?: string;
   onClose: () => void;
-  children: React.ReactNode;
-  footer?: React.ReactNode;
+  children: ReactNode;
 };
 
-export function Modal({ open, title, onClose, children, footer }: Props) {
-  const panelRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!open) return;
-    const el = panelRef.current?.querySelector<HTMLElement>(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-    );
-    el?.focus();
-  }, [open]);
-
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
-
+export function Modal({ open, title, onClose, children }: Props) {
   if (!open) return null;
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4"
-      role="presentation"
-      onMouseDown={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      style={{ background: "var(--modal-backdrop)" }}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby={title ? "modal-title" : undefined}
     >
+      <button
+        type="button"
+        className="absolute inset-0 cursor-default"
+        aria-label="Close dialog"
+        onClick={onClose}
+      />
       <div
-        ref={panelRef}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={title ? "modal-title" : undefined}
-        className="w-full max-w-phone max-h-[90dvh] overflow-y-auto border border-white bg-black p-6 shadow-[0_0_0_1px_rgba(255,255,255,0.08)]"
+        role="document"
+        className="relative z-10 w-full max-w-phone max-h-[90dvh] overflow-y-auto rounded-brand-lg border border-border p-6 shadow-lg"
+        style={{ background: "var(--modal-surface)", color: "var(--text)" }}
+        onClick={(e) => e.stopPropagation()}
+        onKeyDown={(e) => e.stopPropagation()}
       >
-        <div className="flex items-start justify-between gap-4 mb-4">
-          {title ? (
+        {title ? (
+          <header className="mb-4 flex items-start justify-between gap-4">
             <h2
               id="modal-title"
-              className="font-display text-xl text-white tracking-tight"
+              className="font-display text-xl tracking-tight text-ink"
             >
               {title}
             </h2>
-          ) : (
-            <span />
-          )}
-          <Button variant="ghost" className="shrink-0 !min-h-10 !px-3" onClick={onClose}>
-            Close
-          </Button>
-        </div>
-        <div className="text-white/90 font-mono text-sm">{children}</div>
-        {footer ? <div className="mt-6 flex flex-wrap gap-2">{footer}</div> : null}
+            <button
+              type="button"
+              onClick={onClose}
+              className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted hover:text-ink"
+            >
+              Close
+            </button>
+          </header>
+        ) : null}
+        <div className="font-mono text-sm text-ink/90">{children}</div>
       </div>
     </div>
   );

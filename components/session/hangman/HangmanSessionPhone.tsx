@@ -12,12 +12,13 @@ type Props = { roomCode: string; playerName: string };
 
 export function HangmanSessionPhone({ roomCode, playerName }: Props) {
   const [draft, setDraft] = useState("");
-  const { gameState, connected, myRole, sendAction } = useSession({
-    roomCode,
-    playerName,
-    deviceType: "phone",
-    isHost: false,
-  });
+  const { gameState, connected, myRole, sendAction, error, connectionHint } =
+    useSession({
+      roomCode,
+      playerName,
+      deviceType: "phone",
+      isHost: false,
+    });
 
   const sync = gameState as HangmanSyncState | null;
   const s =
@@ -36,8 +37,16 @@ export function HangmanSessionPhone({ roomCode, playerName }: Props) {
 
   if (!connected || myRole === null) {
     return (
-      <div className="min-h-dvh bg-bg flex items-center justify-center px-4">
-        <p className="font-mono text-sm text-muted">Connecting…</p>
+      <div className="min-h-dvh bg-bg flex flex-col items-center justify-center px-4 gap-4 max-w-md mx-auto w-full">
+        {error ? (
+          <p className="font-mono text-sm text-suitred text-center">{error}</p>
+        ) : null}
+        {connectionHint ? (
+          <p className="font-mono text-xs text-suitred text-center leading-relaxed">
+            {connectionHint}
+          </p>
+        ) : null}
+        <p className="font-mono text-sm text-muted text-center">Connecting…</p>
       </div>
     );
   }
@@ -81,7 +90,7 @@ export function HangmanSessionPhone({ roomCode, playerName }: Props) {
             autoComplete="off"
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
-            className="w-full bg-black border border-border px-3 py-3 font-mono text-sm"
+            className="input-field"
             placeholder="Word or phrase"
           />
           <Button onClick={sendWord} disabled={!draft.trim()}>
@@ -119,10 +128,10 @@ export function HangmanSessionPhone({ roomCode, playerName }: Props) {
                   type="button"
                   disabled={used}
                   onClick={() => guess(L)}
-                  className={`min-h-12 font-mono text-sm border ${
+                  className={`min-h-12 rounded-brand font-mono text-sm border ${
                     used
                       ? "border-border text-dim line-through"
-                      : "border-border text-white hover:border-white"
+                      : "border-border text-ink hover:border-border-strong"
                   }`}
                 >
                   {L}

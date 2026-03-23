@@ -132,28 +132,28 @@ export function WordChainGame() {
 
   return (
     <GameShell title="Word Chain" currentPlayer={currentPlayer}>
-      <div className="h-1 w-full bg-surface-2 border border-border mb-4 overflow-hidden">
+      <div className="mb-4 h-1.5 w-full overflow-hidden rounded-full border border-border bg-surface-2">
         <div
-          className="h-full bg-white transition-[width] duration-200 ease-linear"
+          className="h-full rounded-full bg-ink transition-[width] duration-200 ease-linear"
           style={{ width: `${barPct}%` }}
         />
       </div>
       {need ? (
         <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted mb-2">
           Next word must start with{" "}
-          <span className="text-white">{need.toUpperCase()}</span>
+          <span className="text-ink">{need.toUpperCase()}</span>
         </p>
       ) : (
         <p className="font-mono text-[10px] text-muted mb-2 uppercase tracking-[0.14em]">
           Any word to open the chain
         </p>
       )}
-      <div className="max-h-[40vh] overflow-y-auto border border-border mb-4 divide-y divide-border">
+      <div className="mb-4 max-h-[40vh] divide-y divide-border overflow-y-auto rounded-brand border border-border">
         {chain.length === 0 ? (
           <p className="p-4 font-mono text-xs text-dim">No words yet.</p>
         ) : (
           chain.map((w, i) => (
-            <div key={`${w}-${i}`} className="px-3 py-2 font-mono text-sm text-white">
+            <div key={`${w}-${i}`} className="px-3 py-2 font-mono text-sm text-ink">
               {w}
             </div>
           ))
@@ -167,8 +167,8 @@ export function WordChainGame() {
             onKeyDown={(e) => e.key === "Enter" && submit()}
             placeholder="Your word"
             aria-invalid={!!err}
-            className={`w-full bg-black border px-3 py-3 font-mono text-sm text-white placeholder:text-dim ${
-              flash ? "border-suitred" : "border-border"
+            className={`input-field ${
+              flash ? "border-suitred" : ""
             }`}
           />
           {err ? (

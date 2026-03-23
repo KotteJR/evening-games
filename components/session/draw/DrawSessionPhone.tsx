@@ -27,12 +27,13 @@ export function DrawSessionPhone({ roomCode, playerName }: Props) {
 
   const [brush, setBrush] = useState<Brush>("m");
   const [eraser, setEraser] = useState(false);
-  const { gameState, connected, myRole, sendAction } = useSession({
-    roomCode,
-    playerName,
-    deviceType: "phone",
-    isHost: false,
-  });
+  const { gameState, connected, myRole, sendAction, error, connectionHint } =
+    useSession({
+      roomCode,
+      playerName,
+      deviceType: "phone",
+      isHost: false,
+    });
 
   const sync = gameState as DrawSyncState | null;
   const s =
@@ -68,8 +69,16 @@ export function DrawSessionPhone({ roomCode, playerName }: Props) {
 
   if (!connected || myRole === null) {
     return (
-      <div className="min-h-dvh bg-bg flex items-center justify-center">
-        <p className="font-mono text-sm text-muted">Connecting…</p>
+      <div className="min-h-dvh bg-bg flex flex-col items-center justify-center px-4 gap-4 max-w-md mx-auto w-full">
+        {error ? (
+          <p className="font-mono text-sm text-suitred text-center">{error}</p>
+        ) : null}
+        {connectionHint ? (
+          <p className="font-mono text-xs text-suitred text-center leading-relaxed">
+            {connectionHint}
+          </p>
+        ) : null}
+        <p className="font-mono text-sm text-muted text-center">Connecting…</p>
       </div>
     );
   }
@@ -240,7 +249,7 @@ function GuessPanel({ sendAction }: { sendAction: (a: PlayerAction) => void }) {
         value={g}
         onChange={(e) => setG(e.target.value)}
         placeholder="Your guess"
-        className="w-full bg-black border border-border px-3 py-3 font-mono text-sm"
+        className="input-field"
       />
       <Button
         onClick={() => {

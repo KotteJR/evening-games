@@ -14,12 +14,15 @@ const config: Config = {
         surface: "var(--surface)",
         "surface-2": "var(--surface-2)",
         border: "var(--border)",
+        "border-strong": "var(--border-strong)",
         ink: "var(--text)",
         muted: "var(--text-muted)",
         dim: "var(--text-dim)",
         accent: "var(--accent)",
         suitred: "var(--red)",
         card: "var(--card-surface)",
+        ring: "var(--ring)",
+        "ring-offset": "var(--ring-offset)",
       },
       borderRadius: {
         brand: "var(--radius)",
@@ -27,6 +30,7 @@ const config: Config = {
       },
       maxWidth: {
         phone: "420px",
+        play: "28rem",
       },
       fontFamily: {
         display: ["var(--font-display)", "serif"],

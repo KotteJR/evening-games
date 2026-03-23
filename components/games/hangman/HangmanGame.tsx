@@ -91,7 +91,7 @@ export function HangmanGame() {
             value={entryDraft}
             onChange={(e) => setEntryDraft(e.target.value)}
             placeholder="Secret word or phrase"
-            className="w-full bg-black border border-border px-3 py-3 font-mono text-sm text-white placeholder:text-dim"
+            className="input-field"
           />
           <Button onClick={onConfirmWord} disabled={!entryDraft.trim()}>
             Confirm word
@@ -130,11 +130,11 @@ export function HangmanGame() {
                   type="button"
                   disabled={used || state.phase !== "guessing"}
                   onClick={() => onLetter(L)}
-                  className={`min-h-12 font-mono text-sm border ${
+                  className={`min-h-12 rounded-brand font-mono text-sm border ${
                     !used
-                      ? "border-border text-white hover:border-white"
+                      ? "border-border text-ink hover:border-border-strong"
                       : correct
-                        ? "border-white text-white"
+                        ? "border-border-strong text-ink"
                         : "border-border text-dim line-through"
                   }`}
                 >

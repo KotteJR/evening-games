@@ -94,11 +94,11 @@ export function UnoCardBack({ small, onClick }: { small?: boolean; onClick?: () 
       type="button"
       onClick={onClick}
       aria-label="Uno card back"
-      className={`${sz} rounded-brand border border-[#2A2A2A] bg-black shrink-0`}
+      className={`${sz} rounded-brand shrink-0 border border-border bg-surface`}
       style={{
         backgroundImage: `repeating-linear-gradient(
           -45deg,
-          #fff 0 2px,
+          var(--text) 0 2px,
           transparent 2px 9px
         )`,
       }}

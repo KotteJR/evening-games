@@ -26,7 +26,7 @@ function FogGrid({ fog, label }: { fog: FogCell[][]; label: string }) {
     <div>
       <p className="font-mono text-[10px] text-muted mb-1">{label}</p>
       <div
-        className="grid gap-0 border border-border mx-auto w-full max-w-[320px]"
+        className="mx-auto grid w-full max-w-[320px] gap-0 overflow-hidden rounded-brand border border-border"
         style={{
           gridTemplateColumns: `repeat(${BS_SIZE}, minmax(0,1fr))`,
         }}
@@ -35,12 +35,12 @@ function FogGrid({ fog, label }: { fog: FogCell[][]; label: string }) {
           row.map((cell, c) => (
             <div
               key={`${r}-${c}`}
-              className={`aspect-square border border-border text-[10px] font-mono flex items-center justify-center ${
+              className={`flex aspect-square items-center justify-center border border-border font-mono text-[10px] ${
                 cell === "h"
-                  ? "text-white"
+                  ? "text-suitred"
                   : cell === "m"
                     ? "text-muted"
-                    : "bg-black"
+                    : "bg-surface"
               }`}
             >
               {cell === "h" ? "✕" : cell === "m" ? "·" : ""}
@@ -123,15 +123,15 @@ export function BattleshipSessionHost({ roomCode }: Props) {
       <header className="border-b border-border px-4 py-3 flex items-center justify-between max-w-5xl mx-auto w-full">
         <Link
           href="/"
-          className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted hover:text-white"
+          className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted hover:text-ink"
         >
           ← Menu
         </Link>
-        <h1 className="font-display text-lg text-white">
+        <h1 className="font-display text-lg text-ink">
           Battleship · {roomCode}
         </h1>
         <span
-          className={`font-mono text-[10px] ${connected ? "text-white" : "text-suitred"}`}
+          className={`font-mono text-[10px] ${connected ? "text-ink" : "text-suitred"}`}
         >
           {connected ? "Live" : "…"}
         </span>

@@ -92,13 +92,13 @@ export function UnoSessionHost({ roomCode }: Props) {
       <header className="border-b border-border px-4 py-3 flex items-center justify-between max-w-5xl mx-auto w-full">
         <Link
           href="/"
-          className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted hover:text-white"
+          className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted hover:text-ink"
         >
           ← Menu
         </Link>
-        <h1 className="font-display text-lg text-white">Uno · {roomCode}</h1>
+        <h1 className="font-display text-lg text-ink">Uno · {roomCode}</h1>
         <span
-          className={`font-mono text-[10px] ${connected ? "text-white" : "text-suitred"}`}
+          className={`font-mono text-[10px] ${connected ? "text-ink" : "text-suitred"}`}
         >
           {connected ? "Live" : "…"}
         </span>

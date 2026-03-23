@@ -99,26 +99,23 @@ export function TruthOrDareGame() {
 
   return (
     <GameShell title="Truth or Dare" currentPlayer={state.currentPlayer}>
-      <div className="grid grid-cols-[1fr_auto] gap-4 items-start">
-        <div />
-        <div className="w-36">
-          <ScoreBoard scores={state.scores} />
-          <p className="font-mono text-[10px] text-muted text-right">
-            Round {Math.min(state.round, state.maxRounds)} / {state.maxRounds}
-          </p>
-        </div>
+      <div className="w-full max-w-md">
+        <ScoreBoard scores={state.scores} />
+        <p className="mt-2 text-center font-mono text-[10px] text-muted">
+          Round {Math.min(state.round, state.maxRounds)} / {state.maxRounds}
+        </p>
       </div>
 
       {state.phase === "choose" ? (
-        <div className="flex flex-col items-center gap-8 mt-8">
+        <div className="grid w-full max-w-xl grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
           <Button
-            className="!min-h-[100px] w-full max-w-xs font-display !text-4xl !normal-case !tracking-normal"
+            className="!min-h-[100px] w-full font-display !text-3xl !normal-case !tracking-normal sm:!text-4xl"
             onClick={() => choose("truth")}
           >
             Truth
           </Button>
           <Button
-            className="!min-h-[100px] w-full max-w-xs font-display !text-4xl !normal-case !tracking-normal"
+            className="!min-h-[100px] w-full font-display !text-3xl !normal-case !tracking-normal sm:!text-4xl"
             onClick={() => choose("dare")}
           >
             Dare
@@ -127,15 +124,15 @@ export function TruthOrDareGame() {
       ) : null}
 
       {state.phase === "prompt" && state.currentPrompt ? (
-        <div className="mt-8 space-y-8">
-          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted text-center">
+        <div className="w-full space-y-8">
+          <p className="text-center font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
             {state.currentPrompt.type}
           </p>
-          <p className="font-display text-2xl sm:text-3xl text-center leading-snug min-h-[4.5rem]">
+          <p className="min-h-[4.5rem] text-center font-display text-2xl leading-snug sm:text-3xl">
             {visible}
             <span className="opacity-0">{promptText.slice(visible.length)}</span>
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <div className="flex flex-col justify-center gap-3 sm:flex-row">
             <Button onClick={() => complete(1)}>Complete ✓</Button>
             <Button variant="ghost" onClick={() => complete(0)}>
               Skip ✗
@@ -145,9 +142,11 @@ export function TruthOrDareGame() {
       ) : null}
 
       {state.phase === "gameover" ? (
-        <div className="text-center mt-10 space-y-4">
+        <div className="w-full space-y-4 text-center">
           <p className="font-display text-3xl">Finished</p>
-          <ScoreBoard scores={state.scores} />
+          <div className="mx-auto max-w-md">
+            <ScoreBoard scores={state.scores} />
+          </div>
           <p className="font-mono text-xs text-muted">
             {state.scores[0] === state.scores[1]
               ? "Draw"

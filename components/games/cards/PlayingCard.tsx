@@ -12,7 +12,7 @@ export interface PlayingCardProps {
 const sz = { sm: "w-[60px] h-[84px]", md: "w-20 h-28", lg: "w-[100px] h-[140px]" };
 
 function suitClass(s: Suit) {
-  return s === "♥" || s === "♦" ? "text-suitred" : "text-black";
+  return s === "♥" || s === "♦" ? "text-suitred" : "text-neutral-900";
 }
 
 export function PlayingCard({
@@ -21,8 +21,8 @@ export function PlayingCard({
   onClick,
   size = "md",
 }: PlayingCardProps) {
-  const base = `${sz[size]} rounded-brand border border-[#2A2A2A] shrink-0 flex flex-col justify-between p-1 cursor-pointer select-none transition-shadow bg-card text-black`;
-  const sel = selected ? "shadow-[0_0_0_2px_#fff]" : "";
+  const base = `${sz[size]} rounded-brand border border-border shrink-0 flex flex-col justify-between p-1 cursor-pointer select-none transition-shadow bg-card text-neutral-900`;
+  const sel = selected ? "shadow-[0_0_0_2px_var(--ring)]" : "";
 
   if (!card) {
     return (
@@ -30,11 +30,11 @@ export function PlayingCard({
         type="button"
         aria-label="Face-down card"
         onClick={onClick}
-        className={`${base} ${sel} bg-black text-white items-center justify-center`}
+        className={`${base} ${sel} items-center justify-center border-border bg-surface`}
         style={{
           backgroundImage: `repeating-linear-gradient(
             -45deg,
-            #fff 0 2px,
+            var(--text) 0 2px,
             transparent 2px 8px
           )`,
         }}

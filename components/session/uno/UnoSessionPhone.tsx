@@ -28,7 +28,8 @@ function parseUnoSync(raw: unknown): {
 export function UnoSessionPhone({ roomCode, playerName }: Props) {
   const [pick, setPick] = useState<string | null>(null);
 
-  const { gameState, connected, myRole, sendAction, error } = useSession({
+  const { gameState, connected, myRole, sendAction, error, connectionHint } =
+    useSession({
     roomCode,
     playerName,
     deviceType: getDeviceType(),
@@ -87,7 +88,12 @@ export function UnoSessionPhone({ roomCode, playerName }: Props) {
 
   if (!role) {
     return (
-      <div className="min-h-dvh bg-bg flex items-center justify-center px-4">
+      <div className="min-h-dvh bg-bg flex flex-col items-center justify-center px-4 gap-3 max-w-md mx-auto w-full">
+        {connectionHint ? (
+          <p className="font-mono text-xs text-suitred text-center leading-relaxed">
+            {connectionHint}
+          </p>
+        ) : null}
         <p className="font-mono text-sm text-muted text-center">
           {connected ? "Assigning seat…" : "Connecting…"}
         </p>
@@ -98,7 +104,7 @@ export function UnoSessionPhone({ roomCode, playerName }: Props) {
   if (!pub || pub.phase === "lobby") {
     return (
       <div className="min-h-dvh bg-bg flex flex-col items-center justify-center px-4 gap-4">
-        <p className="font-display text-2xl text-white">Player {role}</p>
+        <p className="font-display text-2xl text-ink">Player {role}</p>
         <p className="font-mono text-sm text-muted text-center">
           {connected ? "Waiting for host…" : "Connecting…"}
         </p>
@@ -109,7 +115,7 @@ export function UnoSessionPhone({ roomCode, playerName }: Props) {
   if (pub.phase === "gameover") {
     return (
       <div className="min-h-dvh bg-bg flex flex-col items-center justify-center px-4 gap-3">
-        <p className="font-display text-2xl text-white">Game over</p>
+        <p className="font-display text-2xl text-ink">Game over</p>
         <p className="font-mono text-xs text-muted text-center">
           Check the TV for the final score.
         </p>

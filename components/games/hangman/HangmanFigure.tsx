@@ -7,7 +7,7 @@ export function HangmanFigure({ wrong }: { wrong: number }) {
   return (
     <svg
       viewBox="0 0 200 220"
-      className="w-full max-w-[min(100%,280px)] mx-auto h-auto text-white"
+      className="w-full max-w-[min(100%,280px)] mx-auto h-auto text-ink"
       fill="none"
       stroke="currentColor"
       strokeWidth={2.25}

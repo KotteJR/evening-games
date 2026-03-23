@@ -79,7 +79,8 @@ export function HangmanSessionHost({ roomCode }: Props) {
     [applyGuess],
   );
 
-  const { players, gameState, connected, pushState } = useSession({
+  const { players, gameState, connected, pushState, connectionHint } =
+    useSession({
     roomCode,
     playerName: "TV",
     deviceType: "desktop",
@@ -140,17 +141,25 @@ export function HangmanSessionHost({ roomCode }: Props) {
       <header className="border-b border-border px-4 py-3 flex items-center justify-between max-w-5xl mx-auto w-full">
         <Link
           href="/"
-          className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted hover:text-white"
+          className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted hover:text-ink"
         >
           ← Menu
         </Link>
-        <h1 className="font-display text-lg text-white">Hangman · {roomCode}</h1>
+        <h1 className="font-display text-lg text-ink">Hangman · {roomCode}</h1>
         <span
-          className={`font-mono text-[10px] ${connected ? "text-white" : "text-suitred"}`}
+          className={`font-mono text-[10px] ${connected ? "text-ink" : "text-suitred"}`}
         >
           {connected ? "Live" : "…"}
         </span>
       </header>
+
+      {connectionHint ? (
+        <div className="bg-suitred/15 border-b border-suitred/40 px-4 py-2 max-w-5xl mx-auto w-full">
+          <p className="font-mono text-[10px] text-suitred text-center leading-relaxed">
+            {connectionHint}
+          </p>
+        </div>
+      ) : null}
 
       <main className="flex-1 flex flex-col items-center justify-center px-4 py-8 w-full max-w-2xl mx-auto">
         {!started && sync.phase === "lobby" ? (
