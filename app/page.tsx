@@ -1,100 +1,109 @@
-import Image from "next/image";
+import Link from "next/link";
+import { Badge } from "@/components/ui/Badge";
+
+const GAMES: {
+  slug: string;
+  name: string;
+  desc: string;
+  duration: string;
+}[] = [
+  {
+    slug: "hangman",
+    name: "Hangman",
+    desc: "Guess the secret word, letter by letter.",
+    duration: "5–10 min",
+  },
+  {
+    slug: "wordchain",
+    name: "Word Chain",
+    desc: "Last letter leads the next word.",
+    duration: "5–20 min",
+  },
+  {
+    slug: "truthordare",
+    name: "Truth or Dare",
+    desc: "Prompts for couples — sweet, spicy, funny.",
+    duration: "10–30 min",
+  },
+  {
+    slug: "twentyquestions",
+    name: "Twenty Questions",
+    desc: "Yes / no / sometimes — narrow it down.",
+    duration: "15–45 min",
+  },
+  {
+    slug: "drawandguess",
+    name: "Draw & Guess",
+    desc: "Sketch the prompt; partner guesses.",
+    duration: "5–15 min",
+  },
+  {
+    slug: "durak",
+    name: "Durak",
+    desc: "Russian attack & defend with a 36-card deck.",
+    duration: "15–45 min",
+  },
+  {
+    slug: "uno",
+    name: "Uno",
+    desc: "Patterns, skips, wilds — first to 500 wins.",
+    duration: "15–45 min",
+  },
+  {
+    slug: "noughtsandcrosses",
+    name: "Noughts & Crosses",
+    desc: "Classic, 5×5, or super meta boards.",
+    duration: "5–20 min",
+  },
+  {
+    slug: "battleship",
+    name: "Battleship",
+    desc: "Place your fleet, then call the shots.",
+    duration: "20–40 min",
+  },
+  {
+    slug: "wouldyourather",
+    name: "Would You Rather",
+    desc: "Predict your partner’s wild picks.",
+    duration: "15–30 min",
+  },
+];
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="min-h-dvh bg-bg text-ink flex flex-col items-center px-4 py-10">
+      <header className="w-full max-w-phone text-center mb-10">
+        <h1 className="font-display text-[clamp(3rem,8vw,6rem)] leading-none tracking-tight">
+          NIGHTGAMES
+        </h1>
+        <div className="mt-6 h-px w-full bg-border" />
+      </header>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      <div className="w-full max-w-phone grid grid-cols-1 gap-5 pb-16">
+        {GAMES.map((g) => (
+          <Link
+            key={g.slug}
+            href={`/games/${g.slug}`}
+            className="group block border border-border bg-surface-2 p-5 transition-transform duration-150 hover:border-white hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+            <h2 className="font-display text-2xl sm:text-3xl text-white mb-2">
+              {g.name}
+            </h2>
+            <p className="font-mono text-xs text-muted leading-relaxed mb-4">
+              {g.desc}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <Badge>2 Players</Badge>
+              <Badge>{g.duration}</Badge>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      <footer className="w-full max-w-phone border-t border-border pt-6 text-center">
+        <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
+          Pass one device. Play together.
+        </p>
       </footer>
     </div>
   );

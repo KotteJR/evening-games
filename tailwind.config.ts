@@ -5,12 +5,32 @@ const config: Config = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./styles/**/*.css",
   ],
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        bg: "var(--bg)",
+        surface: "var(--surface)",
+        "surface-2": "var(--surface-2)",
+        border: "var(--border)",
+        ink: "var(--text)",
+        muted: "var(--text-muted)",
+        dim: "var(--text-dim)",
+        accent: "var(--accent)",
+        suitred: "var(--red)",
+        card: "var(--card-surface)",
+      },
+      borderRadius: {
+        brand: "var(--radius)",
+        "brand-lg": "var(--radius-lg)",
+      },
+      maxWidth: {
+        phone: "420px",
+      },
+      fontFamily: {
+        display: ["var(--font-display)", "serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
     },
   },

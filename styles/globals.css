@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #000000;
+  --surface: #111111;
+  --surface-2: #1c1c1c;
+  --border: #2a2a2a;
+  --text: #ffffff;
+  --text-muted: #666666;
+  --text-dim: #333333;
+  --accent: #ffffff;
+  --red: #cc0000;
+  --card-surface: #f5f5f5;
+  --secondary-bg: #1a1a1a;
+  --radius: 4px;
+  --radius-lg: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: var(--font-display), "Times New Roman", serif;
+}
+
+.font-mono-ui {
+  font-family: var(--font-mono), ui-monospace, monospace;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@keyframes char-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes flip-reveal {
+  from {
+    transform: rotateY(90deg);
+    opacity: 0;
+  }
+  to {
+    transform: rotateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-win {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+.animate-flip-reveal {
+  animation: flip-reveal 0.5s ease-out forwards;
+}
+
+.animate-pulse-win {
+  animation: pulse-win 0.6s ease-in-out 2;
+}
+
+.hangman-pre {
+  font-family: ui-monospace, "Cascadia Code", monospace;
+  font-size: clamp(10px, 2.8vw, 14px);
+  line-height: 1.15;
+  white-space: pre;
+  color: var(--text);
+}
