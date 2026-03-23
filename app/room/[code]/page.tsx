@@ -4,6 +4,9 @@ import { useParams, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { HangmanSessionPhone } from "@/components/session/hangman/HangmanSessionPhone";
 import { DrawSessionPhone } from "@/components/session/draw/DrawSessionPhone";
+import { DurakSessionPhone } from "@/components/session/durak/DurakSessionPhone";
+import { UnoSessionPhone } from "@/components/session/uno/UnoSessionPhone";
+import { BattleshipSessionPhone } from "@/components/session/battleship/BattleshipSessionPhone";
 import { normalizeRoomCode } from "@/lib/session/roomCode";
 
 const STORAGE = "ng_player_name";
@@ -29,6 +32,15 @@ function RoomPhoneInner() {
   }
   if (game === "drawandguess") {
     return <DrawSessionPhone roomCode={code} playerName={playerName} />;
+  }
+  if (game === "durak") {
+    return <DurakSessionPhone roomCode={code} playerName={playerName} />;
+  }
+  if (game === "uno") {
+    return <UnoSessionPhone roomCode={code} playerName={playerName} />;
+  }
+  if (game === "battleship") {
+    return <BattleshipSessionPhone roomCode={code} playerName={playerName} />;
   }
 
   return (

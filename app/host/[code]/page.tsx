@@ -1,10 +1,12 @@
 "use client";
 
 import { useParams, useSearchParams } from "next/navigation";
-import { Suspense, useMemo } from "react";
+import { Suspense } from "react";
 import { HangmanSessionHost } from "@/components/session/hangman/HangmanSessionHost";
 import { DrawSessionHost } from "@/components/session/draw/DrawSessionHost";
-import { SessionPlaceholderHost } from "@/components/session/SessionPlaceholderHost";
+import { DurakSessionHost } from "@/components/session/durak/DurakSessionHost";
+import { UnoSessionHost } from "@/components/session/uno/UnoSessionHost";
+import { BattleshipSessionHost } from "@/components/session/battleship/BattleshipSessionHost";
 import { normalizeRoomCode } from "@/lib/session/roomCode";
 
 function HostRoomInner() {
@@ -14,13 +16,6 @@ function HostRoomInner() {
   const code = normalizeRoomCode(decodeURIComponent(codeRaw));
   const game = sp.get("game") ?? "hangman";
 
-  const joinUrl = useMemo(() => {
-    if (typeof window === "undefined") return "";
-    const u = new URL(window.location.origin + `/join/${encodeURIComponent(code)}`);
-    u.searchParams.set("game", game);
-    return u.toString();
-  }, [code, game]);
-
   if (game === "hangman") {
     return <HangmanSessionHost roomCode={code} />;
   }
@@ -28,34 +23,13 @@ function HostRoomInner() {
     return <DrawSessionHost roomCode={code} />;
   }
   if (game === "durak") {
-    return (
-      <SessionPlaceholderHost
-        roomCode={code}
-        joinUrl={joinUrl}
-        title="Durak"
-        body="Phone hand views for Durak are planned next. For now, use Play locally on one device, or gather around the TV and trust your partner not to peek."
-      />
-    );
+    return <DurakSessionHost roomCode={code} />;
   }
   if (game === "uno") {
-    return (
-      <SessionPlaceholderHost
-        roomCode={code}
-        joinUrl={joinUrl}
-        title="Uno"
-        body="Phone hand views for Uno are planned next. Use local play for full rules today."
-      />
-    );
+    return <UnoSessionHost roomCode={code} />;
   }
   if (game === "battleship") {
-    return (
-      <SessionPlaceholderHost
-        roomCode={code}
-        joinUrl={joinUrl}
-        title="Battleship"
-        body="Per-player grids over PartyKit are planned next. Use local pass-and-play for now."
-      />
-    );
+    return <BattleshipSessionHost roomCode={code} />;
   }
 
   return <HangmanSessionHost roomCode={code} />;

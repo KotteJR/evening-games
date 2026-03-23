@@ -27,7 +27,15 @@ export type PlayerAction =
   | { game: "uno"; action: "UNO_CALL"; player: 1 | 2 }
   | { game: "uno"; action: "CHOOSE_COLOR"; color: UnoColor; player: 1 | 2 }
   | { game: "battleship"; action: "FIRE"; x: number; y: number; player: 1 | 2 }
-  | { game: "battleship"; action: "PLACE_SHIP"; ship: PlacedShip; player: 1 | 2 }
+  | {
+      game: "battleship";
+      action: "PLACE_SHIP";
+      ship: PlacedShip;
+      player: 1 | 2;
+      horizontal: boolean;
+    }
+  | { game: "battleship"; action: "READY_FLEET"; player: 1 | 2 }
+  | { game: "battleship"; action: "TOGGLE_ORIENTATION"; player: 1 | 2 }
   | { game: "hangman"; action: "SET_WORD"; word: string; player?: 1 | 2 }
   | { game: "hangman"; action: "GUESS_LETTER"; letter: string; player?: 1 | 2 }
   | { game: "draw"; action: "STROKE"; points: Point[]; tool: DrawTool }

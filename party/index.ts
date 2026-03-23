@@ -18,20 +18,50 @@ export type ServerPlayer = {
   deviceType: "phone" | "desktop";
 };
 
+type EnvelopeV2 = {
+  v: 2;
+  game: string;
+  public: unknown;
+  secrets?: Partial<Record<"1" | "2", Record<string, unknown>>>;
+};
+
+function isEnvelopeV2(x: unknown): x is EnvelopeV2 {
+  return (
+    !!x &&
+    typeof x === "object" &&
+    (x as EnvelopeV2).v === 2 &&
+    typeof (x as EnvelopeV2).game === "string" &&
+    "public" in (x as object)
+  );
+}
+
+function personalizeSync(
+  env: EnvelopeV2,
+  role: 1 | 2 | "host" | undefined,
+): unknown {
+  const base = { v: 2 as const, game: env.game, public: env.public };
+  if (role === "host") {
+    return { ...base, host: true };
+  }
+  if (role === 1 && env.secrets?.["1"]) {
+    return { ...base, you: env.secrets["1"] };
+  }
+  if (role === 2 && env.secrets?.["2"]) {
+    return { ...base, you: env.secrets["2"] };
+  }
+  return base;
+}
+
 export default class NightGamesParty implements Party.Server {
-  private gameState: unknown = null;
+  private envelopeV2: EnvelopeV2 | null = null;
+  private legacyState: unknown = null;
   private hostId: string | null = null;
   private players = new Map<string, ServerPlayer>();
 
   constructor(readonly room: Party.Room) {}
 
   onConnect(conn: Party.Connection): void {
-    conn.send(
-      JSON.stringify({
-        type: "SYNC",
-        payload: this.gameState,
-      }),
-    );
+    this.sendSyncTo(conn);
   }
 
   onMessage(message: string, sender: Party.Connection): void {
@@ -96,15 +126,22 @@ export default class NightGamesParty implements Party.Server {
       );
 
       this.broadcastPlayers();
+      this.sendSyncTo(sender);
       return;
     }
 
     if (msg.type === "STATE_UPDATE") {
       if (sender.id !== this.hostId) return;
-      this.gameState = msg.payload;
-      this.room.broadcast(
-        JSON.stringify({ type: "SYNC", payload: this.gameState }),
-      );
+      const p = msg.payload;
+      if (isEnvelopeV2(p)) {
+        this.envelopeV2 = p;
+        this.legacyState = null;
+        this.broadcastPersonalizedSync();
+        return;
+      }
+      this.legacyState = p;
+      this.envelopeV2 = null;
+      this.room.broadcast(JSON.stringify({ type: "SYNC", payload: p }));
       return;
     }
 
@@ -125,4 +162,35 @@ export default class NightGamesParty implements Party.Server {
       JSON.stringify({ type: "PLAYERS_UPDATE", payload }),
     );
   }
+
+  private sendSyncTo(conn: Party.Connection): void {
+    const role = this.players.get(conn.id)?.role;
+    if (this.envelopeV2) {
+      conn.send(
+        JSON.stringify({
+          type: "SYNC",
+          payload: personalizeSync(this.envelopeV2, role),
+        }),
+      );
+      return;
+    }
+    conn.send(
+      JSON.stringify({ type: "SYNC", payload: this.legacyState }),
+    );
+  }
+
+  private broadcastPersonalizedSync(): void {
+    if (!this.envelopeV2) return;
+    for (const conn of this.room.getConnections()) {
+      const role = this.players.get(conn.id)?.role;
+      conn.send(
+        JSON.stringify({
+          type: "SYNC",
+          payload: personalizeSync(this.envelopeV2, role),
+        }),
+      );
+    }
+  }
 }
+
+export const onFetch = (): Response => new Response("NightGames Party");
